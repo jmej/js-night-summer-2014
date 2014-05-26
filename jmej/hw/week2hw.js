@@ -7,7 +7,8 @@
  * 3. Display to insert the result in a comment after the selection. (Cmd-L)
  */
 
-var myArray = {0:0, 1:1, 2:2,length:3};
+// 1) simulating arrays  --- part one took me about 2 hours
+var myArray = {length:0};
 
 myArray.pop = function() {
 	last = (this["length"])-1;
@@ -42,3 +43,19 @@ myArray.join = function(val) {
     return str;
 }
 
+//tests
+
+//myArray.length=0;
+myArray.push('c');
+myArray.push('b');
+myArray.push('a');
+myArray.pop();
+console.log(myArray.join('a'));
+
+//returns "cab"
+
+console.log(myArray.join(myArray.push(myArray.push('a'))));
+
+//returns "aaa"
+
+//Object Comparison
