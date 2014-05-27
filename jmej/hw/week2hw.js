@@ -6,6 +6,7 @@
  * 2. Inspect to bring up an Object Inspector on the result (Cmd-I), or,
  * 3. Display to insert the result in a comment after the selection. (Cmd-L)
  */
+//reading notes - stopped reading chapter 4 at ex 4.5 may27 - that much took 45 mins
 
 // 1) simulating arrays  --- part one took me about 2 hours
 var myArray = {length:0};
@@ -59,3 +60,35 @@ console.log(myArray.join(myArray.push(myArray.push('a'))));
 //returns "aaa"
 
 //Object Comparison
+
+//a
+var thing = {a:0, b:1, c:2};
+var objB = {};
+
+var copy = function(obj){
+for(var n in obj)
+    objB[n] = obj[n];
+}
+
+var equal = function(objA, objB){
+    for(var n in objA)
+        if (objA[n] !== objB[n]){
+            return false;
+        }
+    return true;
+}
+
+var similar = function(objA, objB){
+    for(var n in objA)
+       if (n in objB == false){
+            return false;
+        }
+        for(var n in objB)
+       if (n in objA == false){
+            return false;
+        }
+    return true;
+}
+//b
+
+    
