@@ -197,11 +197,11 @@ assert(toRoman(22)==='XXII',"Test 22 failed");
 
 //ex 6: deck of cards
 
-var ranks = ["Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King"];
-var suits = ["Hearts", "Diamonds", "Spades", "Clubs"];
 
 function formDeck(){
  var allcards = [];
+ var ranks = ["Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King"];
+ var suits = ["Hearts", "Diamonds", "Spades", "Clubs"];
  
     for (var count = 0; count < 13; count++){
         allcards.push((ranks[count]+" of "+suits[0]));
@@ -213,33 +213,110 @@ function formDeck(){
 }
 
 function suit(card){
-    var suits = ["Hearts", "Diamonds", "Spades", "Clubs"];
+    var suits = [1, 2, 3, 4];
     return (suits[(card % 4)])
     
 }
 
 function rank(card){
-    var ranks = ["Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King"];
+    var ranks = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
     index = Math.floor((card / 4));
     return (ranks[index]);
     
 }
 
+function cardID(rank,suit){
+    var subt = [4, 3, 2, 1];
+    return((rank * 4) - (subt[(suit-1)]));
+}
+
+function color(card){
+    var colors = ["red", "red", "black", "black"];
+    return(colors[(card % 4)]);
+}
+
+function name(card){
+    var ranks = ["Ace", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King"];
+    var suits = ["Hearts", "Diamonds", "Spades", "Clubs"];
+    var rank = ranks[(Math.floor((card / 4)))];
+    var suit = (suits[(card % 4)]);
+    return (rank + " of " + suit);
+}
+function precedes(cardA,cardB){
+    var ranks = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
+    var A = ranks[(Math.floor((cardA / 4)))];
+    var B = ranks[(Math.floor((cardB / 4)))];
+    if (A === (B-1)){
+        return (true);
+    }else if ((A === 13) && (B === 1)){
+        return(true);
+            }
+        return(false);        
+    }
+function sameColor(cardA,cardB){
+    return(color(cardA)===color(cardB));   
+}
+
+function nextInSuit(cardA){
+    if (cardA<48){
+    return(cardA+4);
+    }else{
+        return(cardA-48);
+    }
+}
+
+function prevInSuit(cardB){
+    if (cardB>3){
+    return(cardB-4);
+    }else{
+        return(cardB+48);
+    }
+}
+    
+    
+
+// TESTING:
 
 var allcards = formDeck();
-console.log(allcards[22]);
-console.log(suit(22));
-console.log(rank(22));
+console.log(allcards[3]);
+console.log(suit(31));
+console.log(rank(5));
+console.log(cardID(13, 4));
+console.log(color(31));
+console.log(name(5));
+console.log(precedes(51,0));
+console.log(sameColor(51,50));
+console.log(nextInSuit(51));
 
-     if ((card % 4) == 0)
-        return("Hearts");
+
+function assert(claim,message) {
+    if (!claim) console.error(message);
+}
+assert(rank(0)===1,"Test 1 failed");
+assert(rank(3)===1,"Test 2 failed");
+assert(rank(51)===13,"Test 3 failed");
+assert(suit(0)===1,"Test 4 failed");
+assert(suit(5)===2,"Test 5 failed");
+assert(suit(51)===4,"Test 6 failed");
+assert(cardID(1,1)===0,"Test 7 failed");
+assert(cardID(13,4)===51,"Test 8 failed");
+assert(cardID(8,3)===30,"Test 9 failed");
+assert(color(0)==='red',"Test 10 failed");
+assert(color(2)==='black',"Test 11 failed");
+assert(name(5)==='Two of Diamonds',"Test 12 failed");
+assert(name(51)==='King of Clubs',"Test 13 failed");
+assert(!precedes(0,1),"Test 14 failed");
+assert(precedes(0,5),"Test 15 failed");
+assert(precedes(51,0),"Test 16 failed");
+assert(precedes(50,2),"Test 17 failed");
+assert(sameColor(0,1),"Test 18 failed");
+assert(!sameColor(1,2),"Test 19 failed");
+assert(nextInSuit(0)===4,"Test 20 failed");
+assert(nextInSuit(51)===3,"Test 21 failed");
+assert(nextInSuit(48)===0,"Test 22 failed");
+assert(prevInSuit(0)===48,"Test 23 failed");
+assert(prevInSuit(3)===51,"Test 24 failed");
+assert(prevInSuit(5)===1,"Test 25 failed");
     
-    else if ((card % 4) == 1)
-        return("Diamonds");
-    
-    else if ((card % 4) == 2)
-        return("Spades");
-    
-    else if ((card % 4) == 3)
-        return("Clubs");
-    
+
+

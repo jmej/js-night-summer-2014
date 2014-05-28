@@ -131,5 +131,106 @@ function assert(claim,warning) {
 }
 assert(copy((var a = {a:0}),(var b = {a:0})==={a:0},"Test copy0 failed"); //not really sure how to go about these
 
+       
+//d) Card Deck as Methods
+
+var cardReader = {
+
+	rank: function(card) {
+       var ranks = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
+       index = Math.floor((card / 4));
+       return (ranks[index]);
+	},
+
+	suit: function(card) {
+        var suits = [1, 2, 3, 4];
+        return (suits[(card % 4)]);
+	},
+
+	cardID: function(rank,suit) {
+       var subt = [4, 3, 2, 1];
+       return((rank * 4) - (subt[(suit-1)]));
+	},
+
+	color: function(card) {
+       var colors = ["red", "red", "black", "black"];
+       return(colors[(card % 4)]);
+	},
+
+	//someExtraProperty: whatever...
+	name: function(card) {
+       var ranks = ["Ace", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King"];
+       var suits = ["Hearts", "Diamonds", "Spades", "Clubs"];
+       var rank = ranks[(this.rank(card)-1)];
+       var suit = suits[(this.suit(card)-1)];
+       return (rank + " of " + suit);
+	},
+
+	precedes: function(cardA,cardB) {
+       var ranks = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
+       var A = ranks[(Math.floor((cardA / 4)))];
+       var B = ranks[(Math.floor((cardB / 4)))];
+       if (A === (B-1)){
+          return (true);
+       }else if ((A === 13) && (B === 1)){
+          return(true);
+         }
+        return(false);        
+	},
+
+	sameColor: function(cardA,cardB) {
+        return(this.color(cardA)===this.color(cardB));
+	},
+
+	nextInSuit: function(cardA) {
+    if (cardA<48){
+       return(cardA+4);
+    }else{
+       return(cardA-48);
+       }
+	},
+
+	prevInSuit: function(cardB) {
+    if (cardB>3){
+       return(cardB-4);
+    }else{
+        return(cardB+48);
+         }
+	}
+};
+
+
+// TESTING:
+var alias = cardReader;//change as needed
+
+function assert(claim,message) {
+    if (!claim) console.error(message);
+}
+assert(alias.rank(0)===1,"Test 1 failed");
+assert(alias.rank(3)===1,"Test 2 failed");
+assert(alias.rank(51)===13,"Test 3 failed");
+assert(alias.suit(0)===1,"Test 4 failed");
+assert(alias.suit(5)===2,"Test 5 failed");
+assert(alias.suit(51)===4,"Test 6 failed");
+assert(alias.cardID(1,1)===0,"Test 7 failed");
+assert(alias.cardID(13,4)===51,"Test 8 failed");
+assert(alias.cardID(8,3)===30,"Test 9 failed");
+assert(alias.color(0)==='red',"Test 10 failed");
+assert(alias.color(2)==='black',"Test 11 failed");
+assert(alias.name(5)==='Two of Diamonds',"Test 12 failed");
+assert(alias.name(51)==='King of Clubs',"Test 13 failed");
+assert(!alias.precedes(0,1),"Test 14 failed");
+assert(alias.precedes(0,5),"Test 15 failed");
+assert(alias.precedes(51,0),"Test 16 failed");
+assert(alias.precedes(50,2),"Test 17 failed");
+assert(alias.sameColor(0,1),"Test 18 failed");
+assert(!alias.sameColor(1,2),"Test 19 failed");
+assert(alias.nextInSuit(0)===4,"Test 20 failed");
+assert(alias.nextInSuit(51)===3,"Test 21 failed");
+assert(alias.nextInSuit(48)===0,"Test 22 failed");
+assert(alias.prevInSuit(0)===48,"Test 23 failed");
+assert(alias.prevInSuit(3)===51,"Test 24 failed");
+assert(alias.prevInSuit(5)===1,"Test 25 failed");
+
 
 
