@@ -59,9 +59,9 @@ console.log(myArray.join(myArray.push(myArray.push('a'))));
 
 //returns "aaa"
 
-//Object Comparison
+//Object Comparison -- 3 hours
 
-//a
+// a)
 var thing = {a:0, b:1, c:2};
 var objB = {};
 
@@ -89,6 +89,45 @@ var similar = function(objA, objB){
         }
     return true;
 }
-//b
+// b)
 
-    
+var union = function(objA, objB){
+    var objC = {};
+    for(var n in objA)
+        if (n in objB == false){
+            objC[n] = objA[n];
+        }
+    else{objC[n] = ((objA[n]) || (objB[n]));
+        }
+        for(var n in objB)
+        if (n in objA == false){
+            objC[n] = objB[n];
+        }
+    return objC;
+}
+
+var intersect = function(objA, objB){
+    var objC = {};
+    for(var n in objA)
+        if (n in objB == true){
+            objC[n] = (objA[n]) && (objB[n]); //this works but I'm confused about &&. shouldn't it reject values that aren't present on both sides?
+        }
+    return objC
+}
+
+var minus = function(objA, objB){
+    var objC = {};
+    for(var n in objA)
+        if (n in objB != true){
+            objC[n] = objA[n];
+        }
+    return objC
+}
+
+// c) assertions
+
+function assert(claim,warning) {
+    if (!claim) console.log(warning);
+}
+
+
