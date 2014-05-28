@@ -175,14 +175,25 @@ function lilRoman(n, x) {
 }
 
 //lilRoman(9)
+function assert(claim,warning) {
+    if (!claim) console.log(warning);
+}
 
 function toRoman(n){
     var digits = places(n);
     //console.log(digits);
     var roman = lilRoman(digits[9],10)+lilRoman(digits[8],9)+lilRoman(digits[7],8)+lilRoman(digits[6],7)+lilRoman(digits[5],6)+lilRoman(digits[4],5)+lilRoman(digits[3],4)+lilRoman(digits[2],3)+lilRoman(digits[1],2)+lilRoman(digits[0], 0);
     console.log(roman);
+    return(roman);
 }
-toRoman(1066)
+toRoman(2014)
+
+assert(toRoman(2014)==="MMXIV","Test 2014 failed");
+assert(toRoman(1066)==='MLXVI',"Test 1066 failed");
+assert(toRoman(207)==='CCVII',"Test 207 failed");
+assert(toRoman(1954)==='MCMLIV',"Test 1954 failed");
+assert(toRoman(22)==='XXII',"Test 22 failed");
+
 
 //ex 6: deck of cards
 
@@ -201,13 +212,34 @@ function formDeck(){
         return(allcards);
 }
 
-function formRanks(n){
-        allcards[
+function suit(card){
+    var suits = ["Hearts", "Diamonds", "Spades", "Clubs"];
+    return (suits[(card % 4)])
+    
+}
+
+function rank(card){
+    var ranks = ["Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King"];
+    index = Math.floor((card / 4));
+    return (ranks[index]);
+    
 }
 
 
 var allcards = formDeck();
-console.log(allcards[51]);
+console.log(allcards[22]);
+console.log(suit(22));
+console.log(rank(22));
 
-
- 
+     if ((card % 4) == 0)
+        return("Hearts");
+    
+    else if ((card % 4) == 1)
+        return("Diamonds");
+    
+    else if ((card % 4) == 2)
+        return("Spades");
+    
+    else if ((card % 4) == 3)
+        return("Clubs");
+    

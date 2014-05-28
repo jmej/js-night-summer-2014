@@ -129,5 +129,7 @@ var minus = function(objA, objB){
 function assert(claim,warning) {
     if (!claim) console.log(warning);
 }
+assert(copy((var a = {a:0}),(var b = {a:0})==={a:0},"Test copy0 failed"); //not really sure how to go about these
+
 
 
