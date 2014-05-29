@@ -132,7 +132,7 @@ function assert(claim,warning) {
 assert(copy((var a = {a:0}),(var b = {a:0})==={a:0},"Test copy0 failed"); //not really sure how to go about these
 
        
-//d) Card Deck as Methods
+// 3) Card Deck as Methods -- took 2 hours because I hadn't done this part of HW1 prior
 
 var cardReader = {
 
@@ -232,5 +232,65 @@ assert(alias.prevInSuit(0)===48,"Test 23 failed");
 assert(alias.prevInSuit(3)===51,"Test 24 failed");
 assert(alias.prevInSuit(5)===1,"Test 25 failed");
 
+// 4) social network
 
+
+var people = {};
+
+people.index = {};
+
+people.meet = function(nameA,nameB) {
+        if ((people.index[nameA]==undefined)&&(people.index[nameB]==undefined)){
+        people.index[nameA] = {name : nameA, friends: {}};
+        people.index[nameA].friends[nameB] = 1;
+        people.index[nameB] = {name : nameB, friends: {}};
+        people.index[nameB].friends[nameA] = 1;
+    }
+        else if (people.index[nameB]==undefined){
+        people.index[nameB] = {name : nameB, friends: {}};
+        people.index[nameB].friends[nameA] = 1;
+        people.index[nameA].friends[nameB] = 1;
+    }
+        else if (people.index[nameA]==undefined){
+        people.index[nameA] = {name : nameA, friends: {}};
+        people.index[nameA].friends[nameB] = 1;
+        people.index[nameB].friends[nameA] = 1;
+    }
+        else{
+        var met = (people.index[nameA].friends[nameB]) + 1;
+        people.index[nameA].friends[nameB] = met;
+        people.index[nameB].friends[nameA] = met;
+        console.log(nameA+ " and " +nameB+ " met again");
+    }
+
+}
+
+people.haveMet = function(nameA,nameB) {
+    if ((people.index[nameA] != undefined) && (people.index[nameA].friends[nameB] != undefined)){
+        return people.index[nameA].friends[nameB];
+    }
+    else return 0;
+}
+
+
+people.friendsOf = function(name) {
+	if (people.index[name] == undefined){
+        return undefined;
+    }
+    else{
+        var f = [];
+        for (var p in people.index[name].friends){
+        f.push(p);    
+        }
+        f.sort();
+        var o = "";
+        for (var i=0; i<(f.length-1); i++){
+               o = o + f[i] + ", ";
+        }
+        o = o + f[f.length-1];
+        return(o);
+    }
+}
+
+console.log(people.friendsOf("Dick"));
 
