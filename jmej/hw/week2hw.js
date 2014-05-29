@@ -292,5 +292,5 @@ people.friendsOf = function(name) {
     }
 }
 
-console.log(people.friendsOf("Dick"));
+
 
